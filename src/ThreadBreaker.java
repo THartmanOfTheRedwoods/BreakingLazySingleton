@@ -25,7 +25,7 @@ public abstract class ThreadBreaker implements Runnable {
         IntStream.range(0, 10).forEach( (i) -> new Thread(
                 new ThreadBreakerFactory(
                         "Thread"+i,
-                        SingletonType.LAZY)).start());
+                        SingletonType.THREAD_SAFE)).start());
 
         /* Old Fashioned way to create a bunch of threads */
         /*
@@ -44,7 +44,7 @@ public abstract class ThreadBreaker implements Runnable {
     @Override
     public void run() {
         Singleton instance = createSingleton(this.type);
-        instance.setDataInSingleton("Stuff you put in a singleton.");
+        instance.setDataInSingleton("that sings I'm a singleton.");
         System.out.printf("%s has singleton type %s with id %s and data %s%n", this.getThreadName(), instance.getType(), instance.hashCode(), instance.getDataInSingleton());
     }
 
